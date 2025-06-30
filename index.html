@@ -9,6 +9,7 @@
         <link rel="image_src" href="Dr_Alejandro_Ramirez_files/AlejandroRamirez3.png">
         <link rel="canonical" href="https://prfol.github.io/demo2/">
         <link rel="shortcut icon" type="image/x-icon" href="/Dr_Alejandro_Ramirez_files/favicon.ico">
+		<link rel="manifest" href="Dalia_Li_files/manifest.json">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="Dr. Alejandro Ramírez">
@@ -330,9 +331,9 @@
                         <div class="accordion-body">
                             <div>
                                 <figure class="wp-block-image size-full"><img decoding="async" width="640" height="378" src="Dr_Alejandro_Ramirez_files/AgendarCita.png" alt="" class="wp-image-70" srcset="Dr_Alejandro_Ramirez_files/AgendarCita.png 640w, Dr_Alejandro_Ramirez_files/AgendarCita-300x177.png 300w" sizes="(max-width: 640px) 100vw, 640px"></figure>
-                                <!-- Google Calendar Appointment Scheduling begin -->
-                                <iframe src="Dr_Alejandro_Ramirez_files/AcZssZ1kReeCVjIjxpmkte0KcCDffLH5OjiZiBnuWi1BS62AYsvZWwOy2LL8.htm" style="border: 0" width="100%" height="900" frameborder="0"></iframe>
-                                <!-- end Google Calendar Appointment Scheduling -->
+<!-- Google Calendar Appointment Scheduling begin -->
+<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1cM4cUJKypF4gPu37rkiU6iP2fGOiCZn2_LJb5KOK6arn8MpQR0g-zqCC2-eGWYSlEeoBa3iPB?gv=true" style="border: 0" width="100%" height="1300" frameborder="0"></iframe>
+<!-- end Google Calendar Appointment Scheduling -->
                            </div>
                         </div>
                         <!--  /accordion-body -->
@@ -347,7 +348,7 @@
                 <a class="text-decoration-none" data-bs-target="#modalCompartir" data-bs-toggle="modal" href="#">
                 <span class="pr-footer mx-2"><i class="fa fa-share"></i> Compartir</span>
                 </a>
-                <a id="enlace-instalar" class="text-decoration-none" data-bs-target="#modalInstalar" data-bs-toggle="modal" href="#" style="display: none;">
+                <a id="enlace-instalar" class="text-decoration-none" data-bs-target="#modalInstalar" data-bs-toggle="modal" href="#">
                 <span class="pr-footer mx-2"><i class="fa fa-download"></i> Instalar</span>
                 </a>
             </div>
@@ -470,28 +471,22 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+						<button onclick="generarPDF()">Descargar PDF</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
-		<script>
-			document.getElementById('modalCompartir').addEventListener('click', function (e) {
-				e.preventDefault(); // Evita que el enlace recargue la página
+		<!-- /Modal -->
 
-				const element = document.getElementById('content-to-pdf');
-				const options = {
-					margin: 1,
-					filename: 'mi_documento.pdf',
-					image: { type: 'jpeg', quality: 0.98 },
-					html2canvas: { scale: 2 },
-					jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-				};
 
-				html2pdf().set(options).from(element).save();
-			});
-		</script>
-        <!-- /Modal -->
+<script>
+	function generarPDF() {
+		const elemento = document.getElementById('modalCompartir');
+		html2pdf(elemento);
+	}
+</script>
+ 
         <div class="modal fade" id="modalInstalar" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -715,6 +710,38 @@
             </div>
         </div>
         <!-- /Modal -->
+        <script>
+            function esFirefox() {
+            	return typeof InstallTrigger !== 'undefined'; // Esta propiedad es única de Firefox
+            }
+            
+            function isPWAallowed() {
+            	if (esFirefox()) {
+            		return false;
+            	}
+            	if (window.matchMedia('(display-mode: standalone)').matches) {
+            		return false;
+            	}
+            	return true;
+            }
+              
+            if (isPWAallowed()) {
+            	  const installBtn = document.getElementById('install-btn');
+            
+            	  window.addEventListener('beforeinstallprompt', (event) => {
+            		event.preventDefault();
+            		installBtn.style.display = 'block';
+            		installBtn.addEventListener('click', () => {
+            		  event.prompt();
+            		  installBtn.style.display = 'none';
+            		  window.deferredPrompt = null;
+            		});
+            	  });
+            }
+            else {
+            	  document.getElementById('enlace-instalar').style.display = 'none';			  
+            }
+        </script>
         <div id="addtoany" style="position: static;">
             <div class="a2a_overlay" id="a2a_overlay"></div>
             <div id="a2a_modal" class="a2a_modal a2a_hide" role="dialog" tabindex="-1" aria-label="">
