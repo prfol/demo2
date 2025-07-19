@@ -1,0 +1,22 @@
+{
+  "name": "Dr. Alejandro Ramírez",
+  "short_name": "Demo2",
+  "description": "Carddiólogo Clínico",
+  "start_url": "https://prfol.github.io/demo2/",
+  "display": "standalone",
+  "background_color": "#6a6c6f",
+  "theme_color": "#6a6c6f",
+  "icons": [
+    {
+      "src": "https://prfol.github.io/demo2/Dr_Alejandro_Ramirez_files/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://prfol.github.io/demo2/Dr_Alejandro_Ramirez_files/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait"
+}
